@@ -1,0 +1,80 @@
+.root{
+    width:80%;
+}
+/* Contenedor principal */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f2f2f2;
+}
+
+/* Caja del login */
+.login-form {
+  background: white;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.login-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Botón */
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Mensaje de error */
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+  .login-form {
+    padding: 1.5rem;
+  }
+
+  .login-form h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 768px) {
+  .login-form {
+    padding: 2.5rem;
+  }
+}
