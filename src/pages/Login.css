@@ -11,9 +11,10 @@
   background-color: #f2f2f2;
 }
 
+
 /* Caja del login */
 .login-form {
-  background: white;
+  background: #1f2937;
   padding: 2rem;
   width: 100%;
   max-width: 380px;
@@ -23,6 +24,7 @@
 
 /* Título */
 .login-form h2 {
+  color: aliceblue;
   text-align: center;
   margin-bottom: 1.5rem;
 }
