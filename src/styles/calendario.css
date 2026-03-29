@@ -1,0 +1,180 @@
+/* CONTENEDOR */
+.cw-calendar-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  background: #ffffff;
+  width: 100%;
+  overflow-x: auto;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.cw-calendar-header {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 1fr);
+  background: #1f2937;
+  color: white;
+}
+
+/* DIAS */
+.cw-day-header {
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-left: 1px solid #374151;
+}
+
+/* FILAS */
+.cw-calendar-row {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 1fr);
+}
+
+/* HORA */
+.cw-hour-col {
+  padding: 6px;
+  font-size: 12px;
+  text-align: center;
+  background: #f3f4f6;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+}
+
+/* SLOT BASE */
+.cw-slot {
+  height: 45px;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* ESTADOS */
+.cw-libre {
+  background: #f9fafb;
+}
+
+.cw-ocupado {
+  background: #fca5a5;
+  color: #111;
+}
+
+/* TEXTO */
+.cw-slot-text {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* HOVER */
+.cw-slot:hover {
+  background: #93c5fd !important;
+}
+
+.cw-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.cw-modal {
+  background: #ffffff;
+  width: 420px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* INPUTS */
+.cw-modal input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* INPUT DESHABILITADO */
+.cw-modal input:disabled {
+  background: #f3f4f6;
+  color: #555;
+}
+
+/* RESULTADOS BUSQUEDA */
+.cw-results {
+  margin-top: 10px;
+  max-height: 140px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+/* ITEM RESULTADO */
+.cw-result-item {
+  padding: 6px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+/* HOVER */
+.cw-result-item:hover {
+  background: #e0f2fe;
+}
+
+/* FORM PACIENTE */
+.cw-form {
+  margin-top: 12px;
+}
+
+/* BOTONES */
+.cw-modal-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+/* BOTON GENERAL */
+.cw-modal-actions button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* BOTON GUARDAR */
+.cw-modal-actions button:first-child {
+  background: #2563eb;
+  color: white;
+}
+
+/* BOTON EDITAR */
+.cw-modal-actions button:nth-child(1) {
+  background: #2563eb;
+  color: white;
+}
+
+/* BOTON CANCELAR */
+.cw-modal-actions button:last-child {
+  background: #e5e7eb;
+}
+
+.cw-warning {
+  margin-top: 10px;
+  padding: 8px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 4px;
+  font-size: 13px;
+}

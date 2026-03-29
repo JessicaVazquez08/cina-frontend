@@ -1,6 +1,15 @@
+## [0.3.0] - 2026-03-24 Módulo de Calendario (Frontend)
+
+###  Tercer Sprint
+- Implementación de la vista de calendario para gestión de citas.
+- Creación de componente que organiza fechas y horarios en formato visual.
+- Integración del módulo de calendario dentro del sistema mediante navegación.
+
+---
+
 ## [0.2.0] - 2026-03-15
 
-### Primer Sprint
+### Segundo Sprint
 - Inicialización del proyecto con React (Vite)
 - Creación de la pantalla de login
 - Implementación de formulario de autenticación
