@@ -15,7 +15,7 @@ function Layout() {
 
       <aside className="sidebar">
         <div class="logo">
-            <img src={logo} alt="Cona Wellness"/>
+            <img src={logo} alt="Cina Wellness"/>
         </div>
         <h2 className="logo">Cina Wellness</h2>
 

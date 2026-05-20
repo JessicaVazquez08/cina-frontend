@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { crearCita, actualizarCita } from "../services/citasService";
+import { crearCita, actualizarCita, marcarAtendida, cancelarCita } from "../services/citasService";
 import { buscarPacientes, crearPaciente, actualizarPaciente } from "../services/pacienteService";
 
 function AppointmentModal({ data, onClose, refresh }) {
@@ -17,7 +17,8 @@ function AppointmentModal({ data, onClose, refresh }) {
   });
 
   const esEdicion = !!data.cita;
-  
+  const esAtendida = data.cita?.estado === "ATENDIDA";  
+
   // BUSQUEDA
   useEffect(() => {
     const fetch = async () => {
@@ -42,6 +43,7 @@ function AppointmentModal({ data, onClose, refresh }) {
         telefono: data.cita.paciente?.telefono || "",
         email: data.cita.paciente?.email || ""
       });
+
     }
   }, [data]);
 
@@ -93,16 +95,41 @@ function AppointmentModal({ data, onClose, refresh }) {
     } else {
       await crearCita(payload);
     }
-    
-    /*await crearCita({
-      fecha: data.dia,
-      hora: formatHora(data.hora),
-      estado: "OCUPADO",
-      paciente: { id: pacienteFinal.id }
-    });*/
 
     refresh();
     onClose();
+  };
+
+  const cancelar = async () => {
+  
+      if (!data.cita) {
+        onClose();
+        return;
+      }
+  
+      
+      try {
+        await cancelarCita(data.cita.id);     
+  
+        refresh();
+        onClose();
+  
+      } catch (error) {
+        console.error("Error al cancelar cita", error);
+        alert("Error al cancelar cita");
+      }
+    };
+  
+  const atender = async () => {
+    try {
+      await marcarAtendida(data.cita.id);      
+  
+      refresh();
+      onClose();
+  
+    } catch (error) {
+      alert("Error al marcar como atendida");
+    }
   };
 
   const puedeCrearPaciente = () => {
@@ -117,16 +144,21 @@ function AppointmentModal({ data, onClose, refresh }) {
     <div className="cw-modal-overlay" onClick={onClose}>
 
       <div className="cw-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="cw-close" onClick={onClose}>
+          ×
+        </button>
 
-        <h3>{esEdicion ? "Editar cita" : "Nueva cita"}</h3>
+        <h3>{(data.cita && data.cita.estado === "ATENDIDA") ? "Cita atendida" : esEdicion ? "Editar cita" : "Nueva cita"}</h3>
         <p>{data.dia} - {data.hora}</p>
 
         {/*  BUSCAR */}
-        <input
-          placeholder="Buscar paciente..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
+        {data.cita.paciente == undefined || (data.cita && (data.cita.estado !== "ATENDIDA") && editando) && (
+          <input 
+            placeholder="Buscar paciente..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
+        )}
 
         {/* RESULTADOS */}
         <div className="cw-results">
@@ -149,10 +181,10 @@ function AppointmentModal({ data, onClose, refresh }) {
         {/* FORMULARIO */}
         <div className="cw-form">
 
-          <input
+          <input 
             placeholder="Nombre"
             value={formPaciente.nombre}
-            disabled={pacienteSeleccionado && !editando}
+            disabled={esAtendida || (pacienteSeleccionado && !editando)}
             onChange={(e) =>
               setFormPaciente({ ...formPaciente, nombre: e.target.value })
             }
@@ -161,7 +193,7 @@ function AppointmentModal({ data, onClose, refresh }) {
           <input
             placeholder="Teléfono"
             value={formPaciente.telefono}
-            disabled={pacienteSeleccionado && !editando}
+            disabled={esAtendida || (pacienteSeleccionado && !editando)}
             onChange={(e) =>
               setFormPaciente({ ...formPaciente, telefono: e.target.value })
             }
@@ -170,7 +202,7 @@ function AppointmentModal({ data, onClose, refresh }) {
           <input
             placeholder="Email"
             value={formPaciente.email}
-            disabled={pacienteSeleccionado && !editando}
+            disabled={esAtendida || (pacienteSeleccionado && !editando)}
             onChange={(e) =>
               setFormPaciente({ ...formPaciente, email: e.target.value })
             }
@@ -180,23 +212,33 @@ function AppointmentModal({ data, onClose, refresh }) {
 
         {/* BOTONES */}
         <div className="cw-modal-actions">
+          
+          {data.cita && (data.cita.estado !== "ATENDIDA" && data.cita.estado !== "CANCELADO" ) && pacienteSeleccionado && !editando && (
+            <button onClick={atender}>
+              Atender cita
+            </button>
+          )}
 
-          {pacienteSeleccionado && !editando && (
+          {data.cita && data.cita.estado !== "ATENDIDA" && pacienteSeleccionado && !editando && (
             <button onClick={() => setEditando(true)}>
               Editar paciente
             </button>
           )}
 
-          <button 
-            onClick={guardar}
-            disabled={!pacienteSeleccionado && !puedeCrearPaciente()}
-          >
-            Guardar cita
-          </button>
+          {pacienteSeleccionado && editando && (
+            <button 
+              onClick={guardar}
+              disabled={esAtendida || (!pacienteSeleccionado && !puedeCrearPaciente())}
+            >
+              Guardar cita
+            </button>
+          )}
 
-          <button onClick={onClose}>
-            Cancelar
-          </button>
+          {data.cita && (data.cita.estado !== "ATENDIDA" && data.cita.estado !== "CANCELADO" ) && (
+            <button onClick={cancelar}>
+              Cancelar cita
+            </button>
+          )}
 
         </div>
 

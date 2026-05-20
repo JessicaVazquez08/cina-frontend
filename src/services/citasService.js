@@ -24,6 +24,18 @@ export const actualizarCita = async (id, cita) => {
   return res.json();
 };
 
-export const eliminarCita = async (id) => {
+export const eliminarCita = async (id,) => {
   await fetch(`${API}/${id}`, { method: "DELETE" });
+};
+
+export const cancelarCita = async (id) => {    
+      await fetch(`/api/citas/${id}/cancelar`, {
+        method: "PUT"
+      });      
+  };
+
+export const marcarAtendida = async (id) => {  
+    await fetch(`${API}/${id}/atender`, {
+      method: "PUT"
+    });
 };

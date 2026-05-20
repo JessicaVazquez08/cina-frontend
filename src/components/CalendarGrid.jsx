@@ -46,12 +46,22 @@ function CalendarGrid({ dias, citas, onClickSlot }) {
             return (
               <div
                 key={j}
-                className={`cw-slot ${cita ? "cw-ocupado" : "cw-libre"}`}
+                className={`cw-slot ${
+                  !cita
+                    ? "cw-libre"
+                    : cita.estado === "CANCELADO"
+                    ? "cw-cancelado"
+                     : cita.estado === "ATENDIDA"
+                    ? "cw-atendida"
+                    : "cw-ocupado"
+                }`}
                 onClick={() => onClickSlot({ dia, hora, cita })}
               >
                 {cita && (
                   <span className="cw-slot-text">
                     {cita.paciente?.nombre}
+                    {cita.estado === "CANCELADO" && " (Cancelado)"}
+                    {cita.estado === "ATENDIDA" && " (Atendida)"}
                   </span>
                 )}
               </div>

@@ -1,0 +1,138 @@
+.pos-container {
+  padding: 20px;
+}
+
+.pos-search {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.pos-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.pos-item {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pos-item:hover {
+  background: #f3f4f6;
+}
+
+.pos-cart {
+  margin-top: 20px;
+}
+
+.pos-cart-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.pos-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pos-sub {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.pos-loading {
+  padding: 8px;
+  color: #6b7280;
+}
+
+.pos-item.active {
+  background: #e0f2fe;
+}
+
+.pos-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.pos-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* MODAL GENERAL */
+.pos-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+/* CONFIRM */
+.pos-confirm {
+  background: white;
+  padding: 20px;
+  width: 300px;
+  margin: 150px auto;
+  text-align: center;
+}
+
+/* TICKET */
+.pos-ticket {
+  background: white;
+  width: 300px;
+  margin: 50px auto;
+  padding: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+/* BOTÓN CERRAR */
+.pos-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: none;
+}
+
+/* PRINT */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .ticket-print, .ticket-print * {
+    visibility: visible;
+  }
+
+  .ticket-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .pos-btn, .pos-close {
+    display: none;
+  }
+}
