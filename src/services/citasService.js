@@ -1,6 +1,6 @@
 //const API_URL = import.meta.env.CINA_API_URL;
 
-const API = import.meta.env.VITE_API_URL + "/citas"
+const API = import.meta.env.VITE_API_URL + "/citas";
 
 export const obtenerCitasPorFecha = async (fecha) => {
   const res = await fetch(`${API}/fecha?fecha=${fecha}`);
@@ -8,7 +8,7 @@ export const obtenerCitasPorFecha = async (fecha) => {
 };
 
 export const crearCita = async (cita) => {
-  const res = await fetch(API, {
+  const res = await fetch(`${API}`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(cita)

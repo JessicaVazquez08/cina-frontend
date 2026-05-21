@@ -18,7 +18,7 @@ function GestionProductosModal({ onClose }) {
   // CARGAR MARCAS
   // =========================
   const cargarMarcas = async () => {
-    const res = await fetch("${API}/marcas");
+    const res = await fetch(`${API}/marcas`);
     const data = await res.json();
     setMarcas(data);
   };
@@ -34,7 +34,7 @@ function GestionProductosModal({ onClose }) {
 
     if (!nuevaMarca) return;
 
-    await fetch("${API}/marcas", {
+    await fetch(`${API}/marcas`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre: nuevaMarca })
@@ -54,7 +54,7 @@ function GestionProductosModal({ onClose }) {
       return;
     }
 
-    await fetch("${API}/productos", {
+    await fetch(`${API}/productos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
