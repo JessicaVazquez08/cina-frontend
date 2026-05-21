@@ -1,4 +1,4 @@
-const API = "/api";
+const API = import.meta.env.VITE_API_URL;
 
 export const crearVenta = async (detalles) => {
   const res = await fetch(`${API}/ventas`, {
@@ -15,6 +15,6 @@ export const obtenerProductos = async () => {
 };
 
 export const buscarProductos = async (query) => {
-  const res = await fetch(`/api/productos?search=${query}`);
+  const res = await fetch(`${API}/productos?search=${query}`);
   return res.json();
 };

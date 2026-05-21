@@ -1,5 +1,6 @@
 //const API_URL = import.meta.env.CINA_API_URL;
-const API = "/api/citas";
+
+const API = import.meta.env.VITE_API_URL + "/citas"
 
 export const obtenerCitasPorFecha = async (fecha) => {
   const res = await fetch(`${API}/fecha?fecha=${fecha}`);
@@ -29,7 +30,7 @@ export const eliminarCita = async (id,) => {
 };
 
 export const cancelarCita = async (id) => {    
-      await fetch(`/api/citas/${id}/cancelar`, {
+      await fetch(`${API}/${id}/cancelar`, {
         method: "PUT"
       });      
   };

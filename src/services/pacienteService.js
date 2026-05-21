@@ -1,4 +1,4 @@
-const API = "/api/pacientes";
+const API = import.meta.env.VITE_API_URL + "/pacientes";
 
 export const buscarPacientes = async (query) => {
   const res = await fetch(`${API}/buscar?query=${query}`);
@@ -15,7 +15,7 @@ export const crearPaciente = async (paciente) => {
 };
 
 export const actualizarPaciente = async (id, paciente) => {
-  const res = await fetch(`/api/pacientes/${id}`, {
+  const res = await fetch(`${API}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(paciente)
