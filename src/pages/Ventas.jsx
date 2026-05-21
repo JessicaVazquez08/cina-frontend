@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { crearVenta, buscarProductos } from "../services/ventaService";
-import { DeleteIcon } from "../components/icons";
+import { DeleteIcon } from "../components/Icons.jsx";
 import TicketModal from "../components/TicketModal";
 import "../styles/ventas.css";
 
