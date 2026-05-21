@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const API = import.meta.env.VITE_API_URL;
+
 function GestionProductosModal({ onClose }) {
 
   const [marcas, setMarcas] = useState([]);
@@ -16,7 +18,7 @@ function GestionProductosModal({ onClose }) {
   // CARGAR MARCAS
   // =========================
   const cargarMarcas = async () => {
-    const res = await fetch("/api/marcas");
+    const res = await fetch("${API}/marcas");
     const data = await res.json();
     setMarcas(data);
   };
@@ -32,7 +34,7 @@ function GestionProductosModal({ onClose }) {
 
     if (!nuevaMarca) return;
 
-    await fetch("/api/marcas", {
+    await fetch("${API}/marcas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre: nuevaMarca })
@@ -52,7 +54,7 @@ function GestionProductosModal({ onClose }) {
       return;
     }
 
-    await fetch("/api/productos", {
+    await fetch("${API}/productos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
