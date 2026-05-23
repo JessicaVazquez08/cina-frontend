@@ -152,7 +152,7 @@ function AppointmentModal({ data, onClose, refresh }) {
         <p>{data.dia} - {data.hora}</p>
 
         {/*  BUSCAR */}
-        {data.cita.paciente == undefined || (data.cita && (data.cita.estado !== "ATENDIDA") && editando) && (
+        {(data.cita && (data.cita.paciente == undefined)) || (data.cita && (data.cita.estado !== "ATENDIDA") && editando) && (
           <input 
             placeholder="Buscar paciente..."
             value={busqueda}

@@ -6,7 +6,7 @@ export const buscarPacientes = async (query) => {
 };
 
 export const crearPaciente = async (paciente) => {
-  const res = await fetch(API, {
+  const res = await fetch(`${API}`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(paciente)
