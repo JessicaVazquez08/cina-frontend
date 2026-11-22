@@ -1,43 +1,35 @@
-const API = import.meta.env.VITE_API_URL;
+
+import { apiRequest } from "./api";
 
 export const obtenerProductos = async () => {
-  const res = await fetch(`${API}/productos`);
-  return res.json();
+    return apiRequest("/productos");
 };
 
 export const actualizarProducto = async (id, data) => {
-  const res = await fetch(`${API}/productos/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-  return res.json();
+    return apiRequest(`/productos/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(data)
+    });
 };
 
 export const crearLote = async (lote) => {
-  const res = await fetch(`${API}/inventario/lotes`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(lote)
-  });
-  return res.json();
+    return apiRequest("/inventario/lotes", {
+        method: "POST",
+        body: JSON.stringify(lote)
+    });
 };
 
 export const obtenerLotes = async (productoId) => {
-  const res = await fetch(`${API}/inventario/lotes/${productoId}`);
-  return res.json();
+    return apiRequest(`/inventario/lotes/${productoId}`);
 };
 
 export const crearPrecio = async (data) => {
-  const res = await fetch(`${API}/inventario/precios`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-  return res.json();
+    return apiRequest("/inventario/precios", {
+        method: "POST",
+        body: JSON.stringify(data)
+    });
 };
 
 export const obtenerPrecios = async (productoId) => {
-  const res = await fetch(`${API}/inventario/precios/${productoId}`);
-  return res.json();
+    return apiRequest(`/inventario/precios/${productoId}`);
 };

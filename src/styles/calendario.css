@@ -177,7 +177,7 @@
 
 /* BOTON CANCELAR */
 .cw-modal-actions button:last-child {
-  background: #e5e7eb;
+  background: #fca5a5;
 }
 
 .cw-warning {
@@ -198,4 +198,31 @@
 .cw-atendida {
   background: #86efac;
   color: #065f46;
+}
+
+/* CONTENIDO DEL MODAL */
+.cw-modal h3 {
+    color: #1f2937;
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+.cw-modal p {
+    color: #4b5563;
+    margin-bottom: 15px;
+}
+
+.cw-modal input {
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 14px;
+}
+
+.cw-modal input::placeholder {
+    color: #9ca3af;
+}
+
+.cw-modal-actions button {
+    min-height: 36px;
 }

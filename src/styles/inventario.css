@@ -1,215 +1,340 @@
-.inv-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.inv-section {
-    margin-top: 15px;
-
-    input {
-        margin-right: 10px;
-    }
-}
-
-.inv-inline {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
 
 .inv-container {
-    padding: 20px;
+  width: 100%;
+  min-width: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  color: #374151;
 }
 
-.inv-table {
-    width: 100%;
-    border-collapse: collapse;
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.inv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.inv-table th {
-    background: #1f2937;
-    color: white;
-    padding: 10px;
+.inv-header h2 {
+  margin: 0 0 6px;
+  color: #4b3865;
 }
 
-.inv-table td {
-    text-align: center;
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-
-    & input {
-        text-align: center;
-    }
+.inv-header p,
+.inv-panel-heading p {
+  margin: 0;
+  color: #77717f;
+  font-size: 14px;
 }
 
-.inv-actions button {
-    margin-right: 5px;
-    cursor: pointer;
+.inv-btn {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #72558f;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.inv-lote-form {
-    display: flex;
-    gap: 10px;
+.inv-btn:hover {
+  background: #5d4378;
 }
 
-.inv-lote-row {
-    background: #f3f4f6;
+/* =========================================
+   TARJETAS DE INDICADORES
+========================================= */
+
+.inv-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-/* MODAL */
-.inv-modal {
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
+.inv-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #eee8f2;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(50, 30, 70, 0.05);
 }
 
-.inv-modal-content {
-    background: white;
-    padding: 20px;
-    margin: 100px auto;
-    width: 75%;
-    position: relative;
-    h3 {
-        color: black;
-    }    
+.inv-summary-label {
+  color: #6b6173;
+  font-size: 14px;
 }
 
-.inv-close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border: none;
+.inv-summary-card strong {
+  color: #4b3865;
+  font-size: 30px;
 }
 
-.inv-table {
-    position: relative;
-    overflow: hidden;
+.inv-summary-description {
+  color: #918a98;
+  font-size: 12px;
 }
 
-/* fila base */
-.inv-row {
-    transition: transform 0.3s ease;
+.inv-summary-warning strong {
+  color: #c17b32;
 }
 
-/* efecto desplazamiento */
-.inv-row.inv-open {
-    transform: translateX(0px);
+/* =========================================
+   DISTRIBUCIÓN PRINCIPAL
+========================================= */
+
+.inv-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(230px, 0.8fr);
+  align-items: start;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
 }
 
-/* toggle */
+.inv-products-panel,
+.inv-side-panel {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #eee8f2;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(50, 30, 70, 0.04);
+}
+
+.inv-panel-heading {
+  margin-bottom: 18px;
+}
+
+.inv-panel-heading h3,
+.inv-side-panel h3 {
+  margin: 0 0 6px;
+  color: #4b3865;
+}
+
+.inv-side-panel {
+  line-height: 1.6;
+}
+
+.inv-side-panel p {
+  color: #77717f;
+  font-size: 14px;
+}
+
+.inv-side-panel strong {
+  display: block;
+  color: #5d4378;
+  overflow-wrap: anywhere;
+}
+
+.inv-side-label {
+  margin-bottom: 4px;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   TABLA DE PRODUCTOS
+========================================= */
+
+.inv-table-scroll {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Encabezados */
+
+.inv-table-header {
+  display: grid;
+  grid-template-columns:
+    44px
+    minmax(130px, 1.2fr)
+    minmax(150px, 1.5fr)
+    minmax(100px, 1fr)
+    75px
+    75px;
+  align-items: center;
+  min-width: 720px;
+  padding: 12px 0;
+  border-radius: 8px 8px 0 0;
+  background: #f2edf5;
+  color: #59456d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inv-table-header > div {
+  padding: 0 8px;
+}
+
+/* =========================================
+   FILAS DE PRODUCTOS
+========================================= */
+
+.inv-row-container {
+  min-width: 720px;
+  border-bottom: 1px solid #eee8f2;
+  background: #fff;
+}
+
+.inv-row-viewport {
+  display: flex;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Espacio de la flecha */
+
+.inv-row-toggle-slot {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+/* Botón de flecha */
+
 .inv-toggle {
-    width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  background: #f2edf5;
+  color: #59456d;
+  cursor: pointer;
 }
 
-/* acciones ocultas */
-.inv-actions {
-    display: none;
-    position: absolute; 
-    gap: 5px;
+.inv-toggle:hover {
+  background: #e5d9ed;
 }
 
-/* mostrar acciones */
-.inv-actions.show {
-    display: block;
-    right: 0;
+/* =========================================
+   SLIDER DE ACCIONES
+========================================= */
+
+.inv-row-track {
+  --inv-actions-width: 220px;
+
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 calc(100% - 44px + 220px);
+  width: calc(100% - 44px + 220px);
+  min-width: 0;
+  transform: translateX(0);
+  transition: transform 0.32s ease;
 }
 
-/* contenedor relativo */
-.inv-row {
-    position: relative;
+.inv-row-track.is-open {
+  transform: translateX(-220px);
 }
+
+/* Datos del producto */
+
+.inv-row-main {
+  display: grid;
+  grid-template-columns:
+    minmax(130px, 1.2fr)
+    minmax(150px, 1.5fr)
+    minmax(100px, 1fr)
+    75px
+    75px;
+  flex: 0 0 calc(100% - 220px);
+  width: calc(100% - 220px);
+  min-width: 0;
+  min-height: 62px;
+  align-items: center;
+  background: #fff;
+}
+
+.inv-cell {
+  min-width: 0;
+  padding: 9px 8px;
+  overflow: hidden;
+  color: #514b58;
+  font-size: 13px;
+  text-overflow: ellipsis;
+}
+
+.inv-cell input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 7px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: #514b58;
+  text-align: left;
+}
+
+.inv-cell input:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.inv-cell input:not(:disabled) {
+  border-color: #d8c9e4;
+  background: #fff;
+}
+
+.inv-cell-number {
+  text-align: center;
+}
+
+/* =========================================
+   ICONOS
+========================================= */
 
 .inv-icon {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: #374151;
-    stroke-width: 2;
-    cursor: pointer;
+  display: block;
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: #59456d;
+  stroke-width: 2;
 }
 
-.inv-icon:hover {
-    stroke: #2563eb;
+.inv-arrow {
+  transition: transform 0.3s ease;
 }
 
 .inv-rotate {
-    transform: rotate(180deg);
-    transition: transform 0.3s ease;
-}
-
-.inv-lote-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.inv-lote-table th {
-    background: #111827;
-    color: white;
-    padding: 6px;
-}
-
-.inv-lote-table td {
-    text-align: center;
-    padding: 6px;
-    border-bottom: 1px solid #ddd;
-}
-
-
-/* FORM */
-.inv-precio-form {
-    display: flex;
-    gap: 10px;
-    margin: 15px 0;
-}
-
-.inv-precio-form input {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* TABLA */
-.inv-precio-form-table {
-    margin-top: 15px;
-}
-
-.inv-precio-form-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.inv-precio-form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    gap: 8px;
-}
-
-.inv-precio-form-row input {
-    text-align: center;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.inv-precio-table {
-    width: 100%;
+  transform: rotate(180deg);
 }
 
 .pos-icon {
   width: 18px;
   height: 18px;
+  fill: none;
   stroke: #374151;
   stroke-width: 2;
-  fill: none;
   cursor: pointer;
 }
 
@@ -223,4 +348,1081 @@
 
 .pos-icon-danger:hover {
   stroke: #b91c1c;
+}
+
+/* =========================================
+   PANEL DE ACCIONES DESLIZANTE
+========================================= */
+
+.inv-row-actions {
+  display: flex;
+  flex: 0 0 220px;
+  width: 220px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  background: #f2edf5;
+}
+
+.inv-row-actions button {
+  display: flex;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #e3d8eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #59456d;
+  cursor: pointer;
+}
+
+.inv-row-actions button:hover {
+  background: #e9e0ef;
+  border-color: #bda8cc;
+}
+
+.inv-row-actions button .inv-icon {
+  display: block;
+  width: 19px;
+  height: 19px;
+  stroke: #59456d;
+}
+
+/* =========================================
+   DETALLES DE CADA PRODUCTO
+========================================= */
+
+.inv-row-details {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 18px;
+  border-top: 1px solid #eee8f2;
+  background: #faf8fb;
+}
+
+.inv-row-details h4 {
+  margin: 0 0 12px;
+  color: #59456d;
+}
+
+.inv-message {
+  padding: 16px;
+  color: #817989;
+  font-size: 14px;
+}
+
+.inv-error {
+  padding: 12px;
+  border-radius: 7px;
+  background: #fff0f0;
+  color: #b42318;
+}
+
+/* =========================================
+   TABLA DE LOTES
+========================================= */
+
+.inv-lote-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.inv-lote-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 13px;
+}
+
+.inv-lote-table th {
+  padding: 10px;
+  background: #6b557e;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.inv-lote-table td {
+  padding: 9px;
+  border-bottom: 1px solid #eee8f2;
+  text-align: center;
+}
+
+/* =========================================
+   FORMULARIOS Y SECCIONES EXISTENTES
+========================================= */
+
+.inv-section {
+  margin-top: 15px;
+}
+
+.inv-section input {
+  margin-right: 10px;
+}
+
+.inv-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Formulario de lotes */
+
+.inv-lote-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.inv-lote-form input {
+  min-width: 130px;
+  padding: 8px;
+  border: 1px solid #d9d0df;
+  border-radius: 6px;
+}
+
+.inv-lote-form button {
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #72558f;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* =========================================
+   PANEL DERECHO: REGISTRO DE LOTES
+========================================= */
+
+.inv-side-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.inv-side-heading h3 {
+  margin-bottom: 5px;
+}
+
+.inv-side-heading p {
+  margin: 0;
+}
+
+.inv-side-close {
+  display: flex;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: #f2edf5;
+  color: #59456d;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.inv-side-close:hover {
+  background: #e5d9ed;
+}
+
+.inv-selected-product {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 22px;
+  padding: 14px;
+  border: 1px solid #e8dfee;
+  border-radius: 9px;
+  background: #faf7fc;
+}
+
+.inv-selected-product span {
+  color: #81748d;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.inv-selected-product strong {
+  color: #59456d;
+  font-size: 17px;
+}
+
+.inv-selected-product small {
+  color: #77717f;
+  font-size: 12px;
+}
+
+/* =========================================
+   CAMPOS DEL FORMULARIO DE LOTES
+========================================= */
+
+.inv-side-panel .inv-lote-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 13px;
+  width: 100%;
+}
+
+.inv-side-panel .inv-lote-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.inv-side-panel .inv-lote-field label {
+  color: #59456d;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.inv-side-panel .inv-lote-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #ded4e6;
+  border-radius: 7px;
+  background: #fff;
+  color: #514b58;
+  font-size: 13px;
+}
+
+.inv-side-panel .inv-lote-field input:focus {
+  outline: none;
+  border-color: #9875b0;
+  box-shadow: 0 0 0 2px rgba(114, 85, 143, 0.1);
+}
+
+/* Fechas */
+
+.inv-side-panel .inv-lote-date-field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #ded4e6;
+  border-radius: 7px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.inv-side-panel .inv-lote-date-field label {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 12px;
+  border-right: 1px solid #ded4e6;
+  background: #f8f5fa;
+  color: #59456d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inv-side-panel .inv-lote-date-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 8px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #514b58;
+  font-size: 12px;
+}
+
+.inv-side-panel .inv-lote-date-field:focus-within {
+  border-color: #9875b0;
+  box-shadow: 0 0 0 2px rgba(114, 85, 143, 0.1);
+}
+
+/* Botón Agregar lote */
+
+.inv-side-panel .inv-lote-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 50px;
+  margin-top: 5px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #72558f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inv-side-panel .inv-lote-submit span {
+  display: inline-block;
+  color: #fff;
+}
+
+.inv-side-panel .inv-lote-submit .inv-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #fff;
+}
+
+.inv-side-panel .inv-lote-submit:hover {
+  background: #5d4378;
+}
+
+.inv-side-panel .inv-lote-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MODAL DE GESTIÓN DE PRODUCTOS
+========================================= */
+
+.inv-modal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.inv-modal-content {
+  position: relative;
+  box-sizing: border-box;
+  width: 75%;
+  max-width: 850px;
+  margin: 80px auto;
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.inv-modal-content h3 {
+  color: #4b3865;
+}
+
+.inv-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* =========================================
+   FORMULARIO DE PRECIOS
+========================================= */
+
+.inv-precio-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.inv-precio-form input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.inv-precio-form-table {
+  margin-top: 15px;
+}
+
+.inv-precio-form-header,
+.inv-precio-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 8px;
+}
+
+.inv-precio-form-header {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inv-precio-form-row input {
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.inv-precio-table {
+  width: 100%;
+}
+
+/* =========================================
+   RESPONSIVE - TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+  .inv-container {
+    padding: 20px;
+  }
+
+  .inv-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inv-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inv-side-panel {
+    width: 100%;
+  }
+
+  .inv-modal-content {
+    width: 90%;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+  /* Contenedor */
+
+  .inv-container {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+  }
+
+  /* Encabezado */
+
+  .inv-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .inv-header h2 {
+    font-size: 23px;
+  }
+
+  .inv-header p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .inv-header .inv-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* Indicadores */
+
+  .inv-summary {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .inv-summary-card {
+    padding: 16px;
+  }
+
+  .inv-summary-card strong {
+    font-size: 25px;
+  }
+
+  /* Distribución */
+
+  .inv-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .inv-products-panel,
+  .inv-side-panel {
+    width: 100%;
+    min-width: 0;
+    padding: 14px;
+  }
+
+  .inv-panel-heading h3,
+  .inv-side-panel h3 {
+    font-size: 17px;
+  }
+
+  .inv-panel-heading p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* Tabla: ya no necesita desplazamiento horizontal */
+
+  .inv-table-scroll {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .inv-table-header {
+    display: none;
+  }
+
+  .inv-row-container {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #eee8f2;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  /* Fila */
+
+  .inv-row-viewport {
+    display: block;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Flecha siempre visible */
+
+  .inv-row-toggle-slot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  /* Desactivar desplazamiento horizontal en móvil */
+
+  .inv-row-track,
+  .inv-row-track.is-open {
+    display: flex;
+    position: relative;
+    flex: 0 0 100%;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    transform: none;
+    transition: none;
+  }
+
+  /* Datos organizados en dos columnas */
+
+  .inv-row-main {
+    display: grid;
+    flex: 0 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 12px 10px;
+    padding: 54px 12px 14px;
+  }
+
+  .inv-row-main .inv-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 5px;
+    overflow: visible;
+    color: #514b58;
+    font-size: 13px;
+  }
+
+  /* Etiquetas */
+
+  .inv-row-main .inv-cell:nth-child(1)::before {
+    content: "Nombre";
+  }
+
+  .inv-row-main .inv-cell:nth-child(2)::before {
+    content: "Descripción";
+  }
+
+  .inv-row-main .inv-cell:nth-child(3)::before {
+    content: "Marca";
+  }
+
+  .inv-row-main .inv-cell:nth-child(4)::before {
+    content: "Stock";
+  }
+
+  .inv-row-main .inv-cell:nth-child(5)::before {
+    content: "Stock mínimo";
+  }
+
+  .inv-row-main .inv-cell::before {
+    display: block;
+    margin-bottom: 5px;
+    color: #81748d;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .inv-row-main .inv-cell input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 7px;
+    font-size: 13px;
+  }
+
+  /* Acciones debajo de los datos */
+
+  .inv-row-actions {
+    display: none;
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid #eee8f2;
+  }
+
+  .inv-row-track.is-open .inv-row-actions {
+    display: flex;
+  }
+
+  .inv-row-actions button {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+  }
+
+  /* Detalles y lotes */
+
+  .inv-row-details {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .inv-lote-scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .inv-lote-table {
+    min-width: 580px;
+  }
+
+  /* Panel de registro */
+
+  .inv-side-heading {
+    gap: 8px;
+  }
+
+  .inv-side-panel .inv-lote-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 13px;
+  }
+
+  .inv-side-panel .inv-lote-field {
+    width: 100%;
+  }
+
+  .inv-side-panel .inv-lote-field input {
+    min-height: 44px;
+  }
+
+  .inv-side-panel .inv-lote-date-field {
+    grid-template-columns: 1fr 1.2fr;
+    min-height: 48px;
+  }
+
+  .inv-side-panel .inv-lote-date-field label {
+    padding: 0 9px;
+    font-size: 11px;
+  }
+
+  .inv-side-panel .inv-lote-date-field input {
+    padding: 8px 5px;
+    font-size: 11px;
+  }
+
+  .inv-side-panel .inv-lote-submit {
+    min-height: 48px;
+  }
+
+  /* Modal */
+
+  .inv-modal-content {
+    width: calc(100% - 24px);
+    max-width: none;
+    margin: 20px auto;
+    padding: 20px 14px;
+  }
+
+  /* Formularios de precios */
+
+  .inv-precio-form {
+    flex-direction: column;
+  }
+
+  .inv-precio-form input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .inv-precio-form-header,
+  .inv-precio-form-row {
+    min-width: 480px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 380px) {
+  .inv-container {
+    padding: 10px;
+  }
+
+  .inv-products-panel,
+  .inv-side-panel {
+    padding: 11px;
+  }
+
+  .inv-summary-card {
+    padding: 14px;
+  }
+
+  .inv-row-main {
+    gap: 10px 6px;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .inv-row-main .inv-cell {
+    padding: 4px;
+  }
+
+  .inv-row-actions {
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .inv-side-panel .inv-lote-date-field {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  .inv-side-panel .inv-lote-date-field label {
+    padding: 0 6px;
+    font-size: 10px;
+  }
+
+  .inv-side-panel .inv-lote-date-field input {
+    font-size: 10px;
+  }
+}
+
+/* Ajuste de alineación de columnas en móvil */
+@media (max-width: 600px) {
+  .inv-row-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .inv-row-main .inv-cell {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .inv-row-main .inv-cell-number {
+    text-align: left;
+  }
+
+  .inv-row-main .inv-cell::before {
+    width: 100%;
+    text-align: left;
+  }
+
+  .inv-row-main .inv-cell input {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - TABLETS Y PANTALLAS INTERMEDIAS
+   601px a 900px
+========================================= */
+
+@media (min-width: 601px) and (max-width: 900px) {
+  /* Eliminar scroll horizontal de productos */
+  .inv-table-scroll {
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .inv-table-header {
+    display: none;
+  }
+
+  /* Cada producto se convierte en tarjeta */
+  .inv-row-container {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #eee8f2;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .inv-row-viewport {
+    display: block;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Flecha siempre visible */
+  .inv-row-toggle-slot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    display: flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+
+  /* Desactivar slider horizontal */
+  .inv-row-track,
+  .inv-row-track.is-open {
+    display: flex;
+    position: relative;
+    flex: 0 0 100%;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    transform: none;
+    transition: none;
+  }
+
+  /* Datos en dos columnas */
+  .inv-row-main {
+    display: grid;
+    flex: 0 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 14px 16px;
+    padding: 58px 16px 16px;
+  }
+
+  .inv-row-main .inv-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+    padding: 6px;
+    overflow: visible;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  /* Etiquetas */
+  .inv-row-main .inv-cell:nth-child(1)::before {
+    content: "Nombre";
+  }
+
+  .inv-row-main .inv-cell:nth-child(2)::before {
+    content: "Descripción";
+  }
+
+  .inv-row-main .inv-cell:nth-child(3)::before {
+    content: "Marca";
+  }
+
+  .inv-row-main .inv-cell:nth-child(4)::before {
+    content: "Stock";
+  }
+
+  .inv-row-main .inv-cell:nth-child(5)::before {
+    content: "Stock mínimo";
+  }
+
+  .inv-row-main .inv-cell::before {
+    display: block;
+    width: 100%;
+    margin-bottom: 6px;
+    color: #81748d;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .inv-row-main .inv-cell input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 8px;
+    text-align: left;
+  }
+
+  /* Acciones debajo de los datos */
+  .inv-row-actions {
+    display: none;
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid #eee8f2;
+  }
+
+  .inv-row-track.is-open .inv-row-actions {
+    display: flex;
+  }
+
+  .inv-row-actions button {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Detalles de lotes */
+  .inv-row-details {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px;
+    overflow: hidden;
+  }
+
+  .inv-lote-scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .inv-lote-table {
+    min-width: 580px;
+  }
+}
+
+/* =========================================
+   PANTALLAS INTERMEDIAS Y LAPTOPS
+   901px a 1500px
+========================================= */
+
+@media (min-width: 901px) and (max-width: 1500px) {
+  /* Productos y gestión uno debajo del otro */
+  .inv-content {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  /* Productos utiliza todo el ancho */
+  .inv-products-panel {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Gestión pasa debajo de productos */
+  .inv-side-panel {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Tabla sin desplazamiento horizontal */
+  .inv-table-scroll {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .inv-table-header {
+    grid-template-columns:
+      44px
+      minmax(0, 1.2fr)
+      minmax(0, 1.4fr)
+      minmax(0, 1fr)
+      65px
+      75px;
+    min-width: 0;
+  }
+
+  .inv-row-container {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .inv-row-main {
+    grid-template-columns:
+      minmax(0, 1.2fr)
+      minmax(0, 1.4fr)
+      minmax(0, 1fr)
+      65px
+      75px;
+    min-width: 0;
+  }
+
+  .inv-row-track {
+    min-width: 0;
+  }
+
+  .inv-cell {
+    padding: 9px 6px;
+    font-size: 13px;
+  }
+
+  .inv-table-header > div {
+    padding: 0 6px;
+  }
 }

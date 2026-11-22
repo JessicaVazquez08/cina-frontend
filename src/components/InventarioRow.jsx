@@ -1,148 +1,183 @@
-import { useState } from "react";
-import {
-  actualizarProducto,
-  obtenerLotes
-} from "../services/inventarioService";
-import LoteFormInline from "./LoteFormInline.jsx";
+import { useEffect, useState } from "react";
+import { obtenerLotes } from "../services/inventarioService";
+
 import PrecioModal from "./PrecioModal.jsx";
-import {ArrowIcon, EditIcon, SaveIcon, BoxIcon, MoneyIcon, UpRow, DownRow} from "./Icons.jsx";
 
-function InventarioRow({ producto, refresh, activeRow, setActiveRow}) {
+import {
+  ArrowIcon,
+  EditIcon,
+  BoxIcon,
+  MoneyIcon,
+  UpRow,
+  DownRow,
+} from "./Icons.jsx";
 
-    const [edit, setEdit] = useState(false);
-    const [showLote, setShowLote] = useState(false);
-    const [showPrecios, setShowPrecios] = useState(false);
-    const [expand, setExpand] = useState(false);
-    const [lotes, setLotes] = useState([]); 
-    const [form, setForm] = useState({ ...producto });
-    const isOpen = activeRow === producto.id;
+function InventarioRow({
+  producto,
+  refresh,
+  activeRow,
+  setActiveRow,
+  onRegistrarLote,
+  onEditarProducto,
+}) {
+  const [showPrecios, setShowPrecios] = useState(false);
+  const [expand, setExpand] = useState(false);
+  const [lotes, setLotes] = useState([]);
 
-    const guardar = async () => {
-        await actualizarProducto(producto.id, form);
-        setEdit(false);
-        refresh();
-    };
+  const isOpen = activeRow === producto.id;
 
-    const cargarLotes = async () => {
-        const data = await obtenerLotes(producto.id);
-        setLotes(data);
-    };
+  const cargarLotes = async () => {
+    try {
+      const data = await obtenerLotes(producto.id);
+      setLotes(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Error al consultar lotes:", error);
+      alert("No fue posible consultar los lotes.");
+    }
+  };
 
-    const toggleRow = () => {
-        setActiveRow(isOpen ? null : producto.id);
-    };
-    
-    return (
-        <>
-        <tr className={`inv-row ${isOpen ? "inv-open" : ""}`}>
-            <td>
-                <button onClick={toggleRow}>
-                    <ArrowIcon open={isOpen} />
-                </button>
-            </td>
-            <td>
-                <input
-                    value={form.nombre}
-                    disabled={!edit}
-                    onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                />
-            </td>        
+  const toggleRow = () => {
+    setActiveRow(isOpen ? null : producto.id);
+  };
 
-            <td>
-                <input
-                    value={form.descripcion || ""}
-                    disabled={!edit}
-                    onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-                />
-            </td>
+  const toggleDetalle = async () => {
+    const nuevoEstado = !expand;
+    setExpand(nuevoEstado);
 
-            <td>{producto.marca?.nombre}</td>
+    if (nuevoEstado) {
+      await cargarLotes();
+    }
+  };
 
-            <td>{producto.stock}</td>
+  useEffect(() => {
+    if (expand) {
+      cargarLotes();
+    }
+  }, [producto.stock]);
 
-            <td>
-            <input
-                value={form.stockMinimo || ""}
-                disabled={!edit}
-                onChange={(e) => setForm({ ...form, stockMinimo: e.target.value })}
-            />
-            </td>
-            <td className={`inv-actions ${isOpen ? "show" : ""}`}>
+  return (
+    <div className="inv-row-container">
+      <div className="inv-row-viewport">
+        {/* Flecha fija */}
+        <div className="inv-row-toggle-slot">
+          <button
+            type="button"
+            className="inv-toggle"
+            onClick={toggleRow}
+            aria-label={isOpen ? "Cerrar acciones" : "Abrir acciones"}
+          >
+            <ArrowIcon open={isOpen} />
+          </button>
+        </div>
 
-                {!edit ? (
-                    <button onClick={() => setEdit(true)}><EditIcon/></button>
-                ) : (
-                    <button onClick={guardar}><SaveIcon/></button>
-                )}
+        {/* Contenido deslizante */}
+        <div className={`inv-row-track ${isOpen ? "is-open" : ""}`}>
+          <div className="inv-row-main">
+            <div className="inv-cell">
+              <input value={producto.nombre || ""} disabled />
+            </div>
 
-                <button onClick={() => setShowLote(!showLote)}><BoxIcon/></button>
+            <div className="inv-cell">
+              <input value={producto.descripcion || ""} disabled />
+            </div>
 
-                <button onClick={() => setShowPrecios(true)}><MoneyIcon/></button>
+            <div className="inv-cell">
+              {producto.marca?.nombre || "Sin marca"}
+            </div>
 
-                <button onClick={async () => {
-                    setExpand(!expand);
-                    if (!expand) await cargarLotes();
-                }}>
-                    {expand ? <UpRow/> : <DownRow/>}
-                </button>
+            <div className="inv-cell inv-cell-number">
+              {producto.stock ?? 0}
+            </div>
 
-                </td>
-        </tr>
+            <div className="inv-cell">
+              <input type="number" value={producto.stockMinimo ?? 0} disabled />
+            </div>
+          </div>
 
-        {/* FORM LOTE */}
-        {isOpen && showLote && (
-            <tr>
-            <td colSpan="5">
-                <LoteFormInline producto={producto} refresh={refresh} />
-            </td>
-            </tr>
-        )}
+          {/* Acciones */}
+          <div className="inv-row-actions">
+            <button
+              type="button"
+              title="Editar producto"
+              onClick={() => onEditarProducto(producto)}
+            >
+              <EditIcon />
+            </button>
 
-        {/* LOTES */}
-        {isOpen && expand && lotes.length > 0 && (
-        <tr>
-            <td colSpan="7">
+            <button
+              type="button"
+              title="Registrar lote"
+              onClick={() => onRegistrarLote(producto)}
+            >
+              <BoxIcon />
+            </button>
 
-            <table className="inv-lote-table">
+            <button
+              type="button"
+              title="Administrar precios"
+              onClick={() => setShowPrecios(true)}
+            >
+              <MoneyIcon />
+            </button>
 
+            <button
+              type="button"
+              title={expand ? "Ocultar lotes" : "Consultar lotes"}
+              onClick={toggleDetalle}
+            >
+              {expand ? <UpRow /> : <DownRow />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Detalle de lotes */}
+      {isOpen && expand && (
+        <div className="inv-row-details">
+          <h4>Lotes de {producto.nombre}</h4>
+
+          {lotes.length > 0 ? (
+            <div className="inv-lote-scroll">
+              <table className="inv-lote-table">
                 <thead>
-                <tr>
+                  <tr>
                     <th>Lote</th>
                     <th>Stock</th>
-                    <th>Entrada</th>
+                    <th>Fecha de entrada</th>
                     <th>Caducidad</th>
-                    <th>Precio compra</th>
-                </tr>
+                    <th>Precio de compra</th>
+                  </tr>
                 </thead>
 
                 <tbody>
-                {lotes.map(l => (
-                    <tr key={l.id}>
-                    <td>{l.numeroLote}</td>
-                    <td>{l.stockActual}</td>
-                    <td>{l.fechaEntrada}</td>
-                    <td>{l.fechaCaducidad}</td>
-                    <td>${l.precioCompra}</td>
+                  {lotes.map((lote) => (
+                    <tr key={lote.id}>
+                      <td>{lote.numeroLote}</td>
+                      <td>{lote.stockActual}</td>
+                      <td>{lote.fechaEntrada || "-"}</td>
+                      <td>{lote.fechaCaducidad || "-"}</td>
+                      <td>${Number(lote.precioCompra || 0).toFixed(2)}</td>
                     </tr>
-                ))}
+                  ))}
                 </tbody>
+              </table>
+            </div>
+          ) : (
+            <p className="inv-message">
+              Este producto no tiene lotes con existencias disponibles.
+            </p>
+          )}
+        </div>
+      )}
 
-            </table>
-
-            </td>
-        </tr>
-        )}
-
-        {/* MODAL PRECIOS */}
-        {showPrecios && (
-            <PrecioModal
-            producto={producto}
-            onClose={() => setShowPrecios(false)}
-            />
-        )}
-
-        </>
-    );
+      {showPrecios && (
+        <PrecioModal
+          producto={producto}
+          onClose={() => setShowPrecios(false)}
+        />
+      )}
+    </div>
+  );
 }
 
 export default InventarioRow;

@@ -1,9 +1,9 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../img/logo.png";
-import "./Login.css";
-
-const API = import.meta.env.VITE_API_URL
+import { apiRequest } from "../services/api";
+import "../styles/Login.css";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -11,6 +11,7 @@ function Login() {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -20,52 +21,55 @@ function Login() {
         }
 
         try {
-            const response = await fetch(`${API}/auth/login`, {
+            const data = await apiRequest("/auth/login", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 body: JSON.stringify({
                     email,
-                    password,
-                }),
+                    password
+                })
             });
 
-            if (!response.ok) {
-                throw new Error("Credenciales inválidas");
-            }
+            // Guardar el token JWT
+            localStorage.setItem("cina_token", data.token);
 
-            const message = await response.text();
-            alert(message);
-            navigate("/calendario");
+            // Guardar los datos del usuario
+            localStorage.setItem("cina_user", JSON.stringify({
+                id: data.id,
+                email: data.email,
+                role: data.role
+            }));
+
             setError("");
+            navigate("/calendario");
+
         } catch (err) {
             setError(err.message);
         }
     };
 
     return (
-        <div className="login-container">            
+        <div className="login-container">
             <form className="login-form" onSubmit={handleSubmit}>
-                <div class="logo">
-                    <img src={logo} alt="Cona Wellness"/>
+                <div className="logo">
+                    <img src={logo} alt="CINA Wellness" />
                 </div>
+
                 <h2>Iniciar sesión</h2>
 
                 {error && <p className="error">{error}</p>}
 
                 <input
-                type="email"
-                placeholder="Correo electrónico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="Correo electrónico"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <input
-                type="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                    type="password"
+                    placeholder="Contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <button type="submit">Entrar</button>

@@ -1,30 +1,28 @@
-const API = import.meta.env.VITE_API_URL + "/productos";
+
+import { apiRequest } from "./api";
+
+const API = "/productos";
 
 export const obtenerProductos = async () => {
-  const res = await fetch(`${API}`);
-  return res.json();
+    return apiRequest(API);
 };
 
 export const crearProducto = async (producto) => {
-  const res = await fetch(`${API}`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(producto)
-  });
-  return res.json();
+    return apiRequest(API, {
+        method: "POST",
+        body: JSON.stringify(producto)
+    });
 };
 
 export const actualizarProducto = async (id, producto) => {
-  const res = await fetch(`${API}/${id}`, {
-    method: "PUT",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(producto)
-  });
-  return res.json();
+    return apiRequest(`${API}/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(producto)
+    });
 };
 
 export const eliminarProducto = async (id) => {
-  await fetch(`${API}/${id}`, {
-    method: "DELETE"
-  });
+    return apiRequest(`${API}/${id}`, {
+        method: "DELETE"
+    });
 };

@@ -1,42 +1,40 @@
-//const API_URL = import.meta.env.CINA_API_URL;
 
-const API = import.meta.env.VITE_API_URL + "/citas";
+import { apiRequest } from "./api";
+
+const API = "/citas";
 
 export const obtenerCitasPorFecha = async (fecha) => {
-  const res = await fetch(`${API}/fecha?fecha=${fecha}`);
-  return res.json();
+    return apiRequest(`${API}/fecha?fecha=${encodeURIComponent(fecha)}`);
 };
 
 export const crearCita = async (cita) => {
-  const res = await fetch(`${API}`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(cita)
-  });
-  return res.json();
+    return apiRequest(API, {
+        method: "POST",
+        body: JSON.stringify(cita)
+    });
 };
 
 export const actualizarCita = async (id, cita) => {
-  const res = await fetch(`${API}/${id}`, {
-    method: "PUT",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(cita)
-  });
-  return res.json();
+    return apiRequest(`${API}/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(cita)
+    });
 };
 
-export const eliminarCita = async (id,) => {
-  await fetch(`${API}/${id}`, { method: "DELETE" });
+export const eliminarCita = async (id) => {
+    return apiRequest(`${API}/${id}`, {
+        method: "DELETE"
+    });
 };
 
-export const cancelarCita = async (id) => {    
-      await fetch(`${API}/${id}/cancelar`, {
+export const cancelarCita = async (id) => {
+    return apiRequest(`${API}/${id}/cancelar`, {
         method: "PUT"
-      });      
-  };
+    });
+};
 
-export const marcarAtendida = async (id) => {  
-    await fetch(`${API}/${id}/atender`, {
-      method: "PUT"
+export const marcarAtendida = async (id) => {
+    return apiRequest(`${API}/${id}/atender`, {
+        method: "PUT"
     });
 };
