@@ -40,7 +40,7 @@ function Login() {
             }));
 
             setError("");
-            navigate("/calendario");
+            navigate("/inicio", { replace: true });
 
         } catch (err) {
             setError(err.message);

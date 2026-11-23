@@ -14,10 +14,10 @@ import {
   ChevronDown,
   MapPin,
   Phone,
-  Mail,
-  Clock,
+  Globe,
   CheckCircle2,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/inicio.css";
 import logo from "../img/logo.png";
@@ -71,7 +71,7 @@ function Inicio() {
     mensaje: "",
   });
   const [contactoEnviado, setContactoEnviado] = useState(false);
-
+  const navigate = useNavigate();
   const enviarMensaje = (e) => {
     e.preventDefault();
 
@@ -406,18 +406,28 @@ function Inicio() {
         <div className="inicio-location-icon">
           <MapPin size={28} />
         </div>
-        <div>
+        <div className="inicio-location-info">
           <span className="inicio-eyebrow">VISÍTANOS</span>
           <h2>Estamos para atenderte</h2>
-          <p>
-            Conoce nuestra ubicación y agenda una visita. Próximamente
-            encontrarás aquí nuestra dirección y mapa de ubicación.
+          <p>Avenida República 1558, Guadalajara, Jalisco.</p>
+          <p className="inicio-location-note">
+            Conoce nuestra ubicación y agenda una visita. Será un gusto
+            atenderte.
           </p>
         </div>
-        <a href="/citas" className="inicio-btn-primary">
+        <button type="button" onClick={() => navigate("/citas")}>
           Consultar citas
-          <ArrowRight size={17} />
-        </a>
+          <ArrowRight />
+        </button>
+        <div className="inicio-map">
+          <iframe
+            title="Ubicación de CINA Wellness en Google Maps"
+            src="https://www.google.com/maps?q=Avenida+Rep%C3%BAblica+1558,+Guadalajara,+Jalisco&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
       </section>
 
       {/* CONTACTO */}
@@ -430,17 +440,31 @@ function Inicio() {
             datos y tu mensaje.
           </p>
 
-          <div className="inicio-contact-detail">
-            <Mail size={19} />
-            <span>Formulario de contacto</span>
-          </div>
-          <div className="inicio-contact-detail">
+          <a
+            className="inicio-contact-detail"
+            href="https://wa.me/523316224056"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle size={19} />
+            <span>WhatsApp: 33 1622 4056</span>
+          </a>
+          <a className="inicio-contact-detail" href="tel:+523331559999">
             <Phone size={19} />
-            <span>Atención personalizada</span>
-          </div>
+            <span>Teléfono: 33 3155 9999</span>
+          </a>
+          <a
+            className="inicio-contact-detail"
+            href="https://cinaenmovimiento.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Globe size={19} />
+            <span>cinaenmovimiento.com</span>
+          </a>
           <div className="inicio-contact-detail">
-            <Clock size={19} />
-            <span>Estamos para ayudarte</span>
+            <MapPin size={19} />
+            <span>Avenida República 1558, Guadalajara, Jalisco</span>
           </div>
         </div>
 
@@ -547,13 +571,17 @@ function Inicio() {
           <strong>Contacto</strong>
           <a href="#contacto">Formulario de contacto</a>
           <a href="/citas">Agenda tu cita</a>
-          <span>Ubicación física pendiente de agregar</span>
+          <span>Avenida República 1558, Guadalajara, Jalisco</span>
         </div>
 
         <div className="inicio-footer-social">
           <strong>Síguenos</strong>
           <div>
-            <a href="#" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.facebook.com/profile.php?id=61565477101751&locale=es_LA"
+              target="_blank"
+              rel="noreferrer"
+            >
               Facebook
             </a>
           </div>
