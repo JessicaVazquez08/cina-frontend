@@ -65,7 +65,7 @@ function Layout() {
         </nav>
 
         <div className="sidebar-decoration">
-          <img src="/src/img/hojas-cina.svg" alt="" />
+          <img src="/hojas-cina.svg" alt="" />
           <p>
             Cuidamos
             <br />
