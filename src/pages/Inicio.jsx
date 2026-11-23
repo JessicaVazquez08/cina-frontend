@@ -72,6 +72,12 @@ function Inicio() {
   });
   const [contactoEnviado, setContactoEnviado] = useState(false);
   const navigate = useNavigate();
+
+  // Mantiene la navegación dentro de React Router y evita recargar la página.
+  const navegarInternamente = (ruta) => (e) => {
+    e.preventDefault();
+    navigate(ruta);
+  };
   const enviarMensaje = (e) => {
     e.preventDefault();
 
@@ -171,7 +177,11 @@ function Inicio() {
 
       {/* ACCESOS RAPIDOS */}
       <section className="inicio-quick-access">
-        <a href="/citas" className="inicio-quick-card">
+        <a
+          href="/citas"
+          onClick={navegarInternamente("/citas")}
+          className="inicio-quick-card"
+        >
           <div className="inicio-quick-icon">
             <CalendarDays size={23} />
           </div>
@@ -182,7 +192,11 @@ function Inicio() {
           <ArrowRight size={18} />
         </a>
 
-        <a href="/catalogo" className="inicio-quick-card">
+        <a
+          href="/catalogo"
+          onClick={navegarInternamente("/catalogo")}
+          className="inicio-quick-card"
+        >
           <div className="inicio-quick-icon">
             <ShoppingBag size={23} />
           </div>
@@ -564,13 +578,17 @@ function Inicio() {
           <a href="#nosotros">Quiénes somos</a>
           <a href="#servicios">Servicios</a>
           <a href="#preguntas">Preguntas frecuentes</a>
-          <a href="/catalogo">Catálogo</a>
+          <a href="/catalogo" onClick={navegarInternamente("/catalogo")}>
+            Catálogo
+          </a>
         </div>
 
         <div className="inicio-footer-links">
           <strong>Contacto</strong>
           <a href="#contacto">Formulario de contacto</a>
-          <a href="/citas">Agenda tu cita</a>
+          <a href="/citas" onClick={navegarInternamente("/citas")}>
+            Agenda tu cita
+          </a>
           <span>Avenida República 1558, Guadalajara, Jalisco</span>
         </div>
 
