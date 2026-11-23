@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import {
   ArrowLeft,
   Minus,
@@ -10,21 +11,9 @@ import {
 } from "lucide-react";
 
 import { useCarrito } from "../context/CarritoContext";
+import { obtenerImagenProducto } from "../utils/imagenProducto";
 
 import "../styles/carrito.css";
-
-const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "");
-const API_ORIGIN = API_URL?.replace(/\/api$/, "");
-
-const obtenerImagen = (imagenUrl) => {
-  if (!imagenUrl) return null;
-
-  if (imagenUrl.startsWith("http")) {
-    return imagenUrl;
-  }
-
-  return `${API_ORIGIN}${imagenUrl.startsWith("/") ? "" : "/"}${imagenUrl}`;
-};
 
 function Carrito() {
   const navigate = useNavigate();
@@ -76,7 +65,6 @@ function Carrito() {
       ) : (
         <div className="carrito-layout">
           {/* LISTA DE PRODUCTOS */}
-
           <section className="carrito-productos">
             <div className="carrito-productos-header">
               <div>
@@ -102,7 +90,7 @@ function Carrito() {
 
             <div className="carrito-lista">
               {items.map((item) => {
-                const imagen = obtenerImagen(item.imagenUrl);
+                const imagen = obtenerImagenProducto(item.imagenUrl);
 
                 return (
                   <article className="carrito-item" key={item.id}>
@@ -192,7 +180,6 @@ function Carrito() {
           </section>
 
           {/* RESUMEN */}
-
           <aside className="carrito-resumen">
             <h2>Resumen de compra</h2>
 

@@ -1,24 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { Search, ShoppingCart, Plus, Minus, Trash2, Info } from "lucide-react";
 
 import { obtenerProductos } from "../services/inventarioService";
 import { useCarrito } from "../context/CarritoContext";
 import DetalleProductoModal from "../components/DetalleProductoModal";
+import { obtenerImagenProducto } from "../utils/imagenProducto";
+
 import "../styles/catalogo.css";
-
-const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "");
-const API_ORIGIN = API_URL?.replace(/\/api$/, "");
-
-function obtenerImagen(imagenUrl) {
-  if (!imagenUrl) return "";
-
-  if (imagenUrl.startsWith("http")) {
-    return imagenUrl;
-  }
-
-  return `${API_ORIGIN}${imagenUrl}`;
-}
 
 function Catalogo() {
   const navigate = useNavigate();
@@ -42,7 +32,9 @@ function Catalogo() {
     const cargarProductos = async () => {
       try {
         setError("");
+
         const data = await obtenerProductos();
+
         setProductos(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Error al cargar el catálogo:", err);
@@ -99,6 +91,7 @@ function Catalogo() {
       <header className="catalogo-topbar">
         <div className="catalogo-search">
           <Search size={19} />
+
           <input
             type="search"
             placeholder="Buscar productos..."
@@ -146,7 +139,8 @@ function Catalogo() {
             <div className="catalogo-grid">
               {productosFiltrados.map((producto) => {
                 const stock = Number(producto.stock || 0);
-                const imagen = obtenerImagen(producto.imagenUrl);
+
+                const imagen = obtenerImagenProducto(producto.imagenUrl);
 
                 return (
                   <article className="catalogo-card" key={producto.id}>
@@ -161,6 +155,9 @@ function Catalogo() {
                           src={imagen}
                           alt={producto.nombre}
                           loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
                         />
                       ) : (
                         <div className="catalogo-no-image">
@@ -223,6 +220,7 @@ function Catalogo() {
               <ShoppingCart size={22} />
               Carrito de compras
             </h2>
+
             <span>{items.length}</span>
           </div>
 
@@ -240,7 +238,7 @@ function Catalogo() {
                     <div className="catalogo-cart-image">
                       {item.imagenUrl ? (
                         <img
-                          src={obtenerImagen(item.imagenUrl)}
+                          src={obtenerImagenProducto(item.imagenUrl)}
                           alt={item.nombre}
                         />
                       ) : (

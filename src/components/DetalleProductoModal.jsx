@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
+
 import { ShoppingCart, Plus, Minus, X, Package } from "lucide-react";
+
 import { useCarrito } from "../context/CarritoContext";
+import { obtenerImagenProducto } from "../utils/imagenProducto";
+
 import "../styles/detalleProductoModal.css";
-
-const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, "");
-const API_ORIGIN = API_URL?.replace(/\/api$/, "");
-
-function obtenerImagen(imagenUrl) {
-  if (!imagenUrl) return "";
-
-  if (imagenUrl.startsWith("http")) {
-    return imagenUrl;
-  }
-
-  return `${API_ORIGIN}${imagenUrl}`;
-}
 
 function DetalleProductoModal({ producto, onClose }) {
   const [cantidad, setCantidad] = useState(1);
@@ -31,7 +22,7 @@ function DetalleProductoModal({ producto, onClose }) {
 
   const precio = Number(producto.precioActual || 0);
 
-  const imagen = obtenerImagen(producto.imagenUrl);
+  const imagen = obtenerImagenProducto(producto.imagenUrl);
 
   useEffect(() => {
     setCantidad(1);
@@ -99,7 +90,13 @@ function DetalleProductoModal({ producto, onClose }) {
           <div className="detalle-producto-image-section">
             <div className="detalle-producto-image">
               {imagen ? (
-                <img src={imagen} alt={producto.nombre} />
+                <img
+                  src={imagen}
+                  alt={producto.nombre}
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
               ) : (
                 <div className="detalle-producto-no-image">
                   <Package size={55} />
@@ -138,6 +135,7 @@ function DetalleProductoModal({ producto, onClose }) {
 
             <div className="detalle-producto-stock">
               <Package size={17} />
+
               <span>
                 {stockDisponible > 0
                   ? `Existencia disponible: ${stockDisponible} piezas`
