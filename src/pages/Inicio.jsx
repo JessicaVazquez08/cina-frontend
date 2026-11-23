@@ -15,8 +15,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  Instagram,
-  Facebook,
   Clock,
   CheckCircle2,
 } from "lucide-react";
@@ -555,23 +553,8 @@ function Inicio() {
         <div className="inicio-footer-social">
           <strong>Síguenos</strong>
           <div>
-            <a
-              href="https://www.instagram.com/TU_USUARIO"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-              title="Reemplazar por el perfil oficial"
-            >
-              <Instagram size={19} />
-            </a>
-            <a
-              href="https://www.facebook.com/TU_PAGINA"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook"
-              title="Reemplazar por la página oficial"
-            >
-              <Facebook size={19} />
+            <a href="#" target="_blank" rel="noreferrer">
+              Facebook
             </a>
           </div>
         </div>
