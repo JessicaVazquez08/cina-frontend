@@ -721,6 +721,7 @@
 }
 
 .inv-close {
+  color: #5d4378;
   position: absolute;
   top: 10px;
   right: 10px;

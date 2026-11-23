@@ -351,7 +351,32 @@ function Inicio() {
           </article>
         </div>
       </section>
+      {/* VIDEO DE PRESENTACION */}
+      <section className="inicio-section inicio-video" id="video">
+        <div className="inicio-section-heading">
+          <span className="inicio-eyebrow">CONOCE NUESTRA PLATAFORMA</span>
+          <h2>Descubre CINA Wellness</h2>
+          <p>
+            Conoce nuestra plataforma y descubre cómo puedes consultar
+            productos, gestionar tus citas y realizar compras de demostración de
+            manera sencilla desde un solo lugar.
+          </p>
+        </div>
 
+        <div className="inicio-video-container">
+          <iframe
+            src="https://www.youtube.com/embed/4WjL-DY7uxM"
+            title="Presentación y funcionamiento de CINA Wellness"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
+
+        <p className="inicio-video-caption">
+          CINA Wellness: cuidamos cada paso de tu bienestar.
+        </p>
+      </section>
       {/* POLITICAS */}
       <section className="inicio-quality">
         <div>
